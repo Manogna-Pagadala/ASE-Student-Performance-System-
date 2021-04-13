@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'student/style.css' %}">
+  <title>STUDENT PERFORMANCE SYSTEM</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-2">
+    <div class="container">
+      <a href="Main_page.html" class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 90px; height: 90px; margin-right: 10px;"><font size="108" > STUDENT PERFORMANCE SYSTEM</font></a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+           <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="Main_page.html" class="nav-link">
+              <i class="fas fa-user"></i> LOGOUT
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="main-header" class="py-3 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+            <i class="fas fa-user"></i> ADMIN</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ACTIONS -->
+  <!-- upload attendance -->
+  
+  
+  <div class="row">
+  <div class="col-md-3">
+     <div class="custom-file">
+	<form action="{% url 'upload_attendance' %}" method="POST">{% csrf_token %}
+          <!--<input type="file" name="file" accept=".+\\.csv"><br>-->
+          <input type="file" name="file" ><br>
+          <br>
+          {% if errmsg %}
+         <div class="alert alert-success" style="color:red">
+          <a class="close" href="#" data-dismiss="alert" style="color:red">×</a>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span style="color:red"> {{ errmsg }} </span>
+	 </div>
+          {% endif %}
+	  <input type="submit" value="UPLOAD" class="btn btn-primary btn-block">
+		
+	</form>
+      </div> 
+   </div>     
+   </div> 
+   
+  &nbsp
+  <!-- edit attendance -->
+  
+  
+   <div class="row">
+   <div class="col-md-3">
+   <div class="form-group">
+   <label for="category">COURSES</label>
+   <form action="{% url 'openedit' %}"method="POST">{% csrf_token %}
+  
+   <select class="form-control"  name="cid"> 
+   {% for cname in f %}
+   {% for i in cname %}
+   <option type="submit" value="{{i}}">{{i}}</option>
+   {% endfor %}
+   {% endfor %}
+   </select>
+   <div class="form-group">
+   Date<input type="date" class="form-control" name='date'>
+   </div>
+   {% if msg %}
+    <div class="alert alert-success" style="color:red">
+    <a class="close" href="#" data-dismiss="alert" style="color:red">×</a>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span style="color:red"> {{ msg }} </span>
+    </div>
+   {% endif %}
+   <input type="submit" value="EDIT ATTENDANCE" class="btn btn-primary btn-block">
+   </form>
+   </div>
+   </div>
+   </div>
+   	
+   &nbsp
+  <!-- add achievements -->
+  
+  
+   <div class="row">	
+   <div class="col-md-20"> 
+
+   <form action="{% url 'mach' %}" method="POST">{% csrf_token %}
+   <input type="hidden" name="lp" value="{{q}}">
+   <input type="hidden" name="li" value="{{p}}">
+   <input type="submit" value="ADD ACHIEVEMENTS" class="btn btn-primary btn-block">
+   </form>
+   </div>
+   </div> 
+  
+   
+   &nbsp  
+   <!--<div class="row">		
+   <div class="col-md-13">
+     <a href="f1.html" class="btn btn-success btn-blocks"> <i class="fas fa"> VIEW UPDATED ATTENDANCE </i></a>
+   </div>
+   </div>-->	
+   
+  
+   
+	
+            
+ <!-- FOOTER -->
+  <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="lead text-center">
+            Copyright &copy;
+            <span id="year"></span>
+           IIITS
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+  <script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+
+    CKEDITOR.replace('editor1');
+  </script>
+</body>
+
+</html>
